@@ -24,7 +24,7 @@ class ASRPipe:
     """Opens a recording stream as a generator yielding the audio chunks."""
 
     def __init__(self, **config):
-        self.asr_url = config.get("RIVA_SPEECH_API_URL", "localhost:50051")
+        self.asr_url = config.get("RIVA_SPEECH_API_URL", "0.0.0.0:50051")
         self.sampling_rate = config.get("SAMPLING_RATE", SAMPLING_RATE)
         self.language_code = config.get("LANGUAGE_CODE", LANGUAGE_CODE)
         self.enable_automatic_punctuation = config.get(
