@@ -20,3 +20,26 @@ There is documentation on this process here:
 
 https://docs.nvidia.com/deeplearning/riva/user-guide/docs/quick-start-guide.html#local-deployment-using-quick-start-scripts
 
+#### About the Dockerfile and requirements.txt
+
+The `riva_api` requirement is not available from the public PyPI.  It can be retrieved using the Riva quickstart process mentioned above.  This means that the requirements.txt will not work out of the box.  You can either install `riva_api` first locally, or if you have a private PyPI repository, you can push the wheel file to there and add it to your `pip.conf`.  That would look something like this:
+
+```
+no-cache-dir = true
+index-url = https://pypi.org/simple
+extra-index-url =
+               http://{{EXTRA_HOST}}:{{EXTRA_HOST_PORT}}/nexus/repository/pypi-all/simple
+trusted-host =
+               {{EXTRA_HOST}}
+
+```
+
+After that, the `requirements.txt` should work for you.
+
+If you dont want to mess up an existing `pip.conf`, you can use the `PIP_CONFIG_FILE` environment variable to refer to your own, which is what I have done in the `Dockerfile`.  The `Dockerfile` in this repository assumes that there is a `pip.conf` in the root directory, so you can make it run by copying the example above and replacing `{{EXTRA_HOST}}` and `{{EXTRA_PORT}}` with your private pypi.
+
+#### RMIR and Triton Serving details
+
+TODO.  For now, please refer to the Riva quickstart link mentioned in the previous section.
+
+
